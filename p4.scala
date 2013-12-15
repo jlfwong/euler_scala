@@ -1,6 +1,6 @@
 def a1(digits: Int): Long = {
-  val low =  Math.round(Math.pow(10, digits - 1))
-  val high = Math.round(Math.pow(10, digits))
+  val low =  Math.pow(10, digits - 1).round
+  val high = Math.pow(10, digits).round
 
   (for {
     x <- (low until high)
