@@ -2,7 +2,7 @@ def fib(): Iterator[Int] = {
   var a = 1
   var b = 1
   var i = 0
-  def next(): Int = {
+  Iterator.continually {
     i += 1
     i match {
       case 1 => 1
@@ -15,7 +15,6 @@ def fib(): Iterator[Int] = {
       }
     }
   }
-  Iterator.continually(next())
 }
 
 def a1(max: Int): Int =
