@@ -27,12 +27,12 @@ def fibcb(cb: (Int => Boolean)) {
 
 def a2(max: Int): Int = {
   var sum = 0
-  fibcb(x => {
-    if (x < max) {
+  fibcb {
+    x => if (x < max) {
       if (x % 2 == 0) sum += x
       true
     } else false
-  })
+  }
   sum
 }
 
