@@ -1,19 +1,11 @@
 def fib(): Iterator[Int] = {
   var a = 1
   var b = 1
-  var i = 0
-  Iterator.continually {
-    i += 1
-    i match {
-      case 1 => 1
-      case 2 => 1
-      case _ => {
-        val temp = a
-        a = b
-        b = b + temp
-        b
-      }
-    }
+  Iterator(a, b) ++ Iterator.continually {
+    val temp = a
+    a = b
+    b = b + temp
+    b
   }
 }
 
