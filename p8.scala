@@ -1,3 +1,5 @@
+import Integer.parseInt
+
 val data = """
 73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
@@ -21,9 +23,7 @@ val data = """
 71636269561882670428252483600823257530420752963450
 """.split("\n").mkString("")
 
-def a1(s: String): Int = {
-  val subs = (1 until s.length - 5).map(x => s.substring(x, x + 5))
-  subs.map(s => s.map(c => Integer.parseInt(c.toString)).product).max
-}
+def a1(s: String): Int =
+  s.sliding(5).map{s => s.sliding(1).map{parseInt}.product}.max
 
 println(a1(data))
