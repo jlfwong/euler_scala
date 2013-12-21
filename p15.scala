@@ -10,5 +10,11 @@ def a1(dim: Int): Long = {
   dyn(dim)(dim)
 }
 
+val factorial: (Int => BigInt) = 1L #:: Stream.from(1).map {x: Int => x * factorial(x - 1)}
+def nCr(n: Int, k: Int): BigInt = factorial(n) / (factorial(k) * factorial(n - k))
+def a2(dim: Int): BigInt = nCr(2*dim, dim)
+
 println(a1(2))
+println(a2(2))
 println(a1(20))
+println(a2(20))
