@@ -6,26 +6,31 @@ def collatz(n: Long) =
 
 var memo = Map(1L -> 1L)
 
-def collatzLength(n: Long): Long = {
-  var path = List(n)
-  while (!memo.contains(path.head)) {
+def a1(max: Long): (Long, Long) = {
+  def collatzLength(n: Long): Long = {
+    var path = List(n)
+    while (!memo.contains(path.head)) {
       path = collatz(path.head) :: path
+    }
+    var ret = memo(path.head)
+    while (!path.isEmpty) {
+      memo(path.head) = ret
+      path = path.tail
+      ret += 1
+    }
+    ret - 1
   }
-  var ret = memo(path.head)
-  while (!path.isEmpty) {
-    memo(path.head) = ret
-    path = path.tail
-    ret += 1
-  }
-  ret
+
+  (1L until max) map{n: Long => (n, collatzLength(n))} maxBy{case (n, len) => len}
 }
 
-def a1(max: Long): (Long, Long) =
-  (2L until max) map{n: Long => (n, collatzLength(n))} maxBy{case (n, len) => len}
+def a2(max: Long): (Long, Long) = {
+  def collatzLength(n: Long, ret: Long = 1): Long =
+    if (n == 1) ret
+    else collatzLength(collatz(n), ret + 1)
 
-println(a1(10))
-println(a1(100))
-println(a1(1000))
-println(a1(10000))
-println(a1(100000))
+  (1L until max) map{n: Long => (n, collatzLength(n))} maxBy{case (n, len) => len}
+}
+
 println(a1(1000000))
+println(a2(1000000))
