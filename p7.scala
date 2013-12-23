@@ -19,11 +19,18 @@ def primes2(): Iterator[Int] = {
   }
 }
 
+lazy val primes3: Stream[Int] = 2 #:: Stream.from(3, 2).filter { num: Int =>
+  primes3 takeWhile{n: Int => n * n <= num} forall{num % _ != 0}
+}
+
 def a1(n: Int): Int = primes.take(n).toList.last
 def a2(n: Int): Int = primes2.take(n).toList.last
+def a3(n: Int): Int = primes3.take(n).toList.last
 
 println(a1(6))
 println(a2(6))
+println(a3(6))
 println
 println(a1(10001))
 println(a2(10001))
+println(a3(10001))
