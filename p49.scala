@@ -18,6 +18,22 @@ lazy val evenSpacedFourDigitPrimeTriples: Seq[Tuple3[Int, Int, Int]] = {
   } yield (pA, pB, pC)
 }
 
+lazy val evenSpacedFourDigitPrimeTriples2: Seq[Tuple3[Int, Int, Int]] = {
+  val fourDigitPrimeSet = BitSet(fourDigitPrimes: _*)
+  (0 until fourDigitPrimes.length) flatMap{ a:Int =>
+    (a+1 until fourDigitPrimes.length).map {b: Int => (a, b)}
+  } map {
+    case (a, b) => {
+      val pA = fourDigitPrimes(a)
+      val pB = fourDigitPrimes(b)
+      val pC = pB + (pB - pA)
+      (pA, pB, pC)
+    }
+  } filter {
+    case (pA, pB, pC) => fourDigitPrimeSet(pC)
+  }
+}
+
 def isPerm(a: Int, b: Int) =
   a.toString.sorted == b.toString.sorted
 
@@ -27,4 +43,11 @@ lazy val a1 = {
   }
 }
 
+lazy val a2 = {
+  evenSpacedFourDigitPrimeTriples2.filter {
+    case (pA: Int, pB: Int, pC: Int) => isPerm(pA, pB) && isPerm(pB, pC)
+  }
+}
+
 println(a1)
+println(a2)
