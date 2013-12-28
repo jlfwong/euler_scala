@@ -6,7 +6,7 @@ val pos10s = 0 #:: Stream.from(1) map{pos10}
 def numAtPos(n: Int): Tuple2[BigInt, BigInt] = {
   if (n == 0) (BigInt(1), BigInt(0))
   else {
-    val k = pos10s.zipWithIndex.find{case (v: BigInt, k: Int) => v >= n}.get._2 - 1
+    val k = pos10s.indexWhere{_ >= n} - 1
     (BigInt(10).pow(k) + (n - pos10s(k)) / (k + 1), (n - pos10s(k)) % (k + 1))
   }
 }
